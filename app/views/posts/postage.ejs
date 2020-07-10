@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Renan Schmitt</title>
+    
+    <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Bulma Version 0.8.x-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/blog.css">
+</head>
+
+<body>
+   <!-- START NAV -->
+   <nav class="navbar is-light">
+      <div class="container">
+          <div class="navbar-brand">
+              <a class="navbar-item" href="../">
+                  <img src="./../../public/images/logo.png" alt="Logo">
+              </a>
+              <span class="navbar-burger burger" data-target="navbarMenu">
+                      <span></span>
+              <span></span>
+              <span></span>
+              </span>
+          </div>
+          <div id="navbarMenu" class="navbar-menu">
+              <div class="navbar-end">
+
+                  <a class="navbar-item  is-active" href="/posts">
+                         Posts
+                  </a>
+                  <a class="navbar-item  " href="/posts">
+                      Categorias
+                   </a>
+               <% var login %>
+               <% if (!login) { %>
+                  <a class="navbar-item">
+                      <img class="is-rounded" src="./../../public/images/user-image-default.png">
+                   </a>
+                   <a class="navbar-item" href="/newpostage">
+                      <button class="button is-primary">Publicar</button>
+                  </a>
+               <% } else {  %>
+
+                  <a class="navbar-item" href="/newpostage">
+                      <button class="button is-primary">Publicar</button>
+                  </a>
+              
+                  <a class="navbar-item" href="/login">
+                      <button class="button is-link">Login</button>
+                  </a>
+
+             <% } %>
+              </div>
+          </div>
+      </div>
+  </nav>
+  <!-- END NAV -->
+
+    <section class="hero is-info is-medium is-bold">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title">SIT AND TAKE A COFFEE</h1>
+            </div>
+        </div>
+    </section>
+    
+    <section class="articles">
+		
+        <%if (postage == 0) { %>
+          <section class="hero is-danger is-medium is-bold">
+              <div class="hero-body">
+                  <div class="container has-text-centered">
+                      <h1 class="title">Lamentamos, mas a postagem a seguir não está mais disponivel :/</h1>
+                  </div>
+              </div>
+          </section>  
+        <% } else { %>
+       
+			<div class="column is-8 is-offset-2">
+           
+					<!-- START ARTICLE -->
+				   
+					<div class="media">
+            <article class="message  is-info" style="width:100%">  
+							<div class="message-header">
+									<figure class="image is-128x128">
+                    <img class="is-rounded" src="./../../public/images/user-image-default.png">
+									</figure>
+							  
+									<div class="media-content has-text-centered">
+										<p class="title article-title" style="color: white"><%= postage[0].title %></p>
+										<div class="tags has-addons level-item">
+											<span class="tag is-rounded is-dark">@<%= postage[0].author %></span>
+										<span class="tag is-rounded"><%= postage[0].date %></span>
+									</div>
+								</div>
+							</div>
+							<div class="message-body">
+								 <%= postage[0].content %>
+              </div>
+
+      <% comments.forEach(comment => { %>
+               <!-- BEGINS COMMENTS-->
+      
+        <article class="media">
+                <figure class="media-left">
+                  <p class="image is-64x64">
+                    <img class=" is-rounded" src="./../../public/images/user-image-default.png">
+                  </p>
+                </figure>
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong><%= comment.author %></strong>
+                      <br>
+                      <%= comment.content %>
+                      <br>
+                      <small><%= comment.date %></small>
+                    </p>
+                  </div>
+        </article>
+         <!-- END COMMENTS-->
+         <% })%>
+
+         <!-- BEGINS FORMS SEND COMMENT-->
+         <form action="/newcomment" method="post">
+         <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img class="is-rounded" src="./../../public/images/user-image-default.png">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="field">
+                <p class="control">
+                  <textarea name="commentText" class="textarea" placeholder="Add a comment..."></textarea>
+                </p>
+
+                <input name="id_post" type="hidden" value="<%= postage[0].id %>">
+              </div>
+              <div class="field">
+                <p class="control">
+                  <button type="submit" class="button">Comentar</button>
+                </p>
+              </div>
+            </div>
+           </article>
+						</article>
+          </div>
+        </form>  
+				
+							   
+			   <!-- END ARTICLE -->
+				
+				</div>  
+       
+         <% }%>
+	</section>
+       
+        <script async type="text/javascript" src="../js/bulma.js"></script>
+        
+        <footer class="footer ">
+                <div class="content has-text-centered">
+                    <p><strong>Sit and take a Coffee </strong> by  <a href="https://www.linkedin.com/in/renanschmitt/">Renan Schmitt</a>.
+                    
+                    <br>
+                     <a href="https://bulma.io">
+                        <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
+                    </a>
+                </p>
+                </div>
+        </footer>
+            
+        
+
+</body>
+
+</html>

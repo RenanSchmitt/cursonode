@@ -1,0 +1,1 @@
+CREATE TABLE `app_development`.`comments` ( `id_comment` INT(10) NOT NULL AUTO_INCREMENT , `author` VARCHAR(255) NOT NULL , `content` VARCHAR(255) NOT NULL , `id_post` INT(10) NOT NULL , PRIMARY KEY (`id_comment`))
